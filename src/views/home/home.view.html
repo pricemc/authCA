@@ -1,0 +1,90 @@
+﻿<div>
+    <form name="form" ng-submit="vm.Create()" role="form">
+        <div class="row">
+            <div class="col-sm-11">
+                <div class="form-group">
+                    <input type="text" name="message" id="message" class="form-control" ng-model="vm.message"
+                        required placeholder="What would you like to say?" rows="1" ng-class="{'has-warning': form.$invalid}">
+                    <span ng-show="form.message.$dirty && form.message.$error.required" class="help-block">Message
+                        is required</span>
+                </div>
+            </div>
+            <div class="col-sm-1">
+                <button type="submit" ng-submit="vm.Create()" class="btn btn-primary" ng-disabled="form.$invalid || vm.dataLoading">Post</button><img
+                    ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojstrongBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4strongTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </div>
+        </div>
+    </form>
+
+</div>
+<ul class="media-list">
+    <div ng-repeat="post in vm.allPosts | orderBy: 'post.postedDate':true">
+        <li class="media" >
+            <a class="pull-left tip" href="#" data-toggle="tooltip" title="">
+                <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+"
+                    style="width: 64px; height: 64px;">
+            </a>
+            <div class="media-body">
+                <h5 class="media-heading"><strong title="">{{post.author.name}}</strong> @{{post.author.username}} &middot;
+                    <small><span am-time-ago="post.postedDate"></span></small></h5>
+                <div>{{post.message}}</div>
+                <div class="pull-right">
+                    <button class="btn btn-primary" ng-click="vm.commentId = post._id" data-toggle="modal" data-target="#newCommentModal"><span
+                            class="glyphicon glyphicon-pencil"></span></button>
+                </div>
+            </div>
+            <div class="comments">
+                <ul class="media-list">
+                    <div ng-repeat="comment in post.children">
+                        <li class="media">
+                            <a class="pull-left" href="#">
+                                <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+"
+                                    style="width: 64px; height: 64px;">
+                            </a>
+                            <div class="media-body">
+                                <h5 class="media-heading"><strong>{{comment.author.name}}</strong>
+                                    @{{comment.author.username}} &middot;
+                                    <small><span am-time-ago="comment.postedDate"></span></small></h5>
+                                {{comment.message}}
+                            </div>
+                        </li>
+                        <hr>
+                    </div>
+                </ul>
+            </div>
+        </li>
+        <hr>
+    </div>
+</ul>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="newCommentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">New Comment</h4>
+            </div>
+            <div class="modal-body">
+                <form name="form" ng-submit="vm.Comment()" role="form">
+                    <div class="form-group" ng-class="{ 'has-error': form.message.$dirty && form.message.$error.required }">
+                        <label for="message">Message</label>
+                        <textarea type="text" name="message" id="message" class="form-control" ng-model="vm.message"
+                            required></textarea>
+                        <span ng-show="form.message.$dirty && form.message.$error.required" class="help-block">Message
+                            is required</span>
+                    </div>
+                    <div class="form-actions">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" ng-submit="vm.Comment()" class="btn btn-primary" ng-disabled="form.$invalid || vm.dataLoading">Post</button><img
+                                ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojstrongBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4strongTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
