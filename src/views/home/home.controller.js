@@ -26,7 +26,7 @@
             vm.config.headers.Authorization = 'JWT ' + $rootScope.globals.currentUser.authdata;
             loadCurrentUser();
             loadAllPosts();
-            $interval(loadAllPosts, 1000);
+            //$interval(loadAllPosts, 1000);
 
         }
 

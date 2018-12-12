@@ -8,6 +8,16 @@ const router = express.Router();
 const User = require('../models/User');
 const UserProfile = require('../models/UserProfile');
 
+router.get(
+  '/me',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    return res
+      .status(200)
+      .send({ success: true, msg: 'Success.', user: req.user });
+  }
+);
+
 router.post('/register', (req, res) => {
   console.log(req);
   if (!req.body.username || !req.body.password) {
