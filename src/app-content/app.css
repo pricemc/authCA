@@ -1,67 +1,73 @@
 ﻿a {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-    position: relative;
-    min-height: 100%;
-  }
-  body {
-    margin-bottom: 60px; /* Margin bottom by footer height */
-  }
-  .footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 60px; /* Set the fixed height of the footer here */
-    line-height: 60px; /* Vertically center the text there */
-    background-color: #f5f5f5;
-  }
+  position: relative;
+  min-height: 100%;
+}
 
-  .jumbotron {
-    background-color: #fcfcfc;
-    height: 100%;
-  }
+body {
+  margin-bottom: 60px;
+  /* Margin bottom by footer height */
+}
 
-  .navbar {
-    margin-bottom: 0px;
-  }
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  /* Set the fixed height of the footer here */
+  line-height: 60px;
+  /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
 
-  .form-control textarea {
-    width: 100%;
-  }
+.jumbotron {
+  background-color: #fcfcfc;
+  height: 100%;
+}
 
-  .comments {
-    margin-left: 74px;
-  }
+.navbar {
+  margin-bottom: 0px;
+}
 
-  hr {
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
+.form-control textarea {
+  width: 100%;
+}
 
-  textarea {
-    resize: none;
-  }
+.comments {
+  margin-left: 74px;
+}
+
+hr {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+textarea {
+  resize: none;
+}
 
 
-  
-  .tooltip2 .tooltiptext2 {
-    visibility: hidden;
-    width: 120px;
-    background-color: rgba(0, 0, 0, 0.8);;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-  
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
-  }
-  
-  .tooltip2:hover .tooltiptext2 {
-    visibility: visible;
-  }
+
+.tooltip2 .tooltiptext2 {
+  visibility: hidden;
+  width: 120px;
+  background-color: rgba(0, 0, 0, 0.8);
+  ;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip2:hover .tooltiptext2 {
+  visibility: visible;
+}
