@@ -30,7 +30,7 @@
         }
 
         function GetCurrentUser(config) {
-            return $http.get('/api/user/', config).then(handleSuccess).catch(handleError('Error creating post'));
+            return $http.get('/api/user/', config).then(handleSuccess).catch(handleError('Error getting user'));
         }
 
         function UpdateCurrentUser(config, userProfile) {

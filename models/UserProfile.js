@@ -16,6 +16,9 @@ const UserProfileSchema = new Schema({
   bio: {
     type: String
   },
+  url: {
+    type: String
+  },
   role: {
     type: String,
     enum: ['Worker', 'Super', 'Admin'],

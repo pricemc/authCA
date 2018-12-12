@@ -6,10 +6,11 @@
         .config(config)
         .run(run);
 
-    app.constant('angularMomentConfig', {
-        preprocess: 'unix', // optional
-        timezone: 'America/Denver' // optional
-    });
+    // app.constant('angularMomentConfig', {
+    //     preprocess: 'unix', // optional
+    //     timezone: 'America/Denver' // optional
+        
+    // });
     //app.constant('moment', 'moment-timezone');
     config.$inject = ['$routeProvider', '$locationProvider'];
 

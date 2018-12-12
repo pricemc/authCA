@@ -3,8 +3,8 @@
         <div class="row">
             <div class="col-sm-11">
                 <div class="form-group">
-                    <input type="text" name="message" id="message" class="form-control" ng-model="vm.message"
-                        required placeholder="What would you like to say?" rows="1" ng-class="{'has-warning': form.$invalid}">
+                    <input type="text" name="message" id="message" class="form-control" ng-model="vm.message" required
+                        placeholder="What would you like to say?" rows="1" ng-class="{'has-warning': form.$invalid}">
                     <span ng-show="form.message.$dirty && form.message.$error.required" class="help-block">Message
                         is required</span>
                 </div>
@@ -19,14 +19,19 @@
 </div>
 <ul class="media-list">
     <div ng-repeat="post in vm.allPosts | orderBy: 'post.postedDate':true">
-        <li class="media" >
-            <a class="pull-left tip" href="#" data-toggle="tooltip" title="">
-                <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+"
-                    style="width: 64px; height: 64px;">
+        <li class="media">
+            <a class="pull-left tip tooltip2" href="#">
+
+
+                <img ng-src="{{post.author.url}}" ng-if="post.author.url" class="media-object" style="width: 64px; height: 64px;" />
+                <img ng-if="!post.author.url" class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+"
+                    style="width: 64px; height: 64px;" />
+                <span class="tooltiptext2" ng-if="post.author.bio">{{post.author.bio}}</span>
             </a>
             <div class="media-body">
-                <h5 class="media-heading"><strong title="">{{post.author.name}}</strong> @{{post.author.username}} &middot;
-                    <small><span am-time-ago="post.postedDate"></span></small></h5>
+                <h5 class="media-heading"><strong>{{post.author.name}}</strong> @{{post.author.username}}
+                    &middot;
+                    <small><span>{{post.postedDate | amCalendar}}</span></small></h5>
                 <div>{{post.message}}</div>
                 <div class="pull-right">
                     <button class="btn btn-primary" ng-click="vm.commentId = post._id" data-toggle="modal" data-target="#newCommentModal"><span
@@ -36,15 +41,20 @@
             <div class="comments">
                 <ul class="media-list">
                     <div ng-repeat="comment in post.children">
-                        <li class="media">
+                        <li class="media tooltip2">
                             <a class="pull-left" href="#">
-                                <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+"
-                                    style="width: 64px; height: 64px;">
+                                <img ng-src="{{comment.author.url}}" ng-if="comment.author.url" class="media-object"
+                                    style="width: 64px; height: 64px;" />
+                                <img ng-if="!comment.author.url" class="media-object" data-src="holder.js/64x64" alt="64x64"
+                                    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+"
+                                    style="width: 64px; height: 64px;" />
+
+                                <span class="tooltiptext2" ng-if="comment.author.bio">{{comment.author.bio}}</span>
                             </a>
                             <div class="media-body">
                                 <h5 class="media-heading"><strong>{{comment.author.name}}</strong>
                                     @{{comment.author.username}} &middot;
-                                    <small><span am-time-ago="comment.postedDate"></span></small></h5>
+                                    <small><span>{{comment.postedDate | amCalendar}}</span></small></h5>
                                 {{comment.message}}
                             </div>
                         </li>

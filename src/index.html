@@ -105,7 +105,7 @@
             <div class="row">
                 <div class="col-xs-4 text-muted">Made with &#10084;</div>
                 <div class="col-xs-4 text-muted">Build Reference: {{build}}</div>
-                <div class="col-xs-4 text-muted">Built: <span>{{time | amCalendar}}</span></div>
+                <div class="col-xs-4 text-muted">Built: <span am-time-ago="time" am-preprocess="unix"></span></div>
             </div>
         </div>
     </footer>

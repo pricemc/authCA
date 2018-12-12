@@ -4,6 +4,7 @@ const router = express.Router();
 const passport = require('passport');
 const Post = require('../../models/Post');
 const Comment = require('../../models/Comment');
+const User = require('../../models/User');
 const UserProfile = require('../../models/UserProfile');
 require('../../config/passport')(passport);
 
@@ -12,9 +13,14 @@ const mongoose = require('mongoose');
 /* GET CURRENT USER */
 router.get('/', (req, res, next) => {
   const token = getToken(req.headers);
+  console.log(req.user._id)
   if (token) {
-    return res.json({success: true, message: req.user.userProfile});
-
+    UserProfile.findOne({_id: mongoose.Types.ObjectId(req.user.userProfile._id)},(err, data) => {
+      if (err) return next(err);
+      console.log(data);
+      
+      res.json({success:true, message: data});
+    })
   } else {
     return res.status(403).send({ success: false, message: 'Unauthorized.' });
   }
@@ -30,6 +36,7 @@ router.post('/', (req, res, next) => {
         if (err) return next(err);
         user.bio = req.body.bio;
         user.name = req.body.name;
+        user.url = req.body.url;
         user.save((err) => {
             console.log(err);
             return res.json({success: true, message: user});

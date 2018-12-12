@@ -5,8 +5,8 @@
         .module('app')
         .controller('ProfileController', ProfileController);
 
-    ProfileController.$inject = ['UserService', 'PostService', 'DomainService', 'FlashService', '$rootScope', '$interval'];
-    function ProfileController(UserService, PostService, DomainService, FlashService, $rootScope, $interval) {
+    ProfileController.$inject = ['UserService', 'PostService', 'AuthenticationService', 'FlashService', '$rootScope', '$interval'];
+    function ProfileController(UserService, PostService, AuthenticationService, FlashService, $rootScope, $interval) {
         var vm = this;
 
         vm.user;
@@ -32,10 +32,11 @@
         function loadCurrentUser() {
             UserService.GetCurrentUser(vm.config).then(function (response) {
                 if (response.success) {
+                    AuthenticationService.SetCredentials($rootScope.globals.currentUser.username, $rootScope.globals.currentUser.authdata, response.message)
                     vm.dataLoading = false;
                     //vm.loadAllPosts().then((res)=>console.log(res)).catch((err)=>console.log(err));
                 } else {
-                    FlashService.Error(response.data.message);
+                    FlashService.Error(response.message);
                     vm.dataLoading = false;
                 }
             }).catch((error) => {
@@ -60,7 +61,7 @@
             }).catch((error) => {
                 console.log(error);
             });
-            this.loadCurrentUser();
+            loadCurrentUser();
         }
     }
 

@@ -6,6 +6,7 @@
         .controller('HomeController', HomeController);
 
     HomeController.$inject = ['UserService', 'PostService', 'DomainService', 'FlashService', '$rootScope', '$interval'];
+
     function HomeController(UserService, PostService, DomainService, FlashService, $rootScope, $interval) {
         var vm = this;
 
@@ -22,11 +23,14 @@
 
         initController();
 
+
+
         function initController() {
             vm.config.headers.Authorization = 'JWT ' + $rootScope.globals.currentUser.authdata;
             loadCurrentUser();
             loadAllPosts();
             //$interval(loadAllPosts, 1000);
+
 
         }
 
@@ -40,7 +44,7 @@
                     console.log(posts);
                     vm.allPosts = posts;
                 })
-            
+
         }
 
         function Create() {
@@ -50,7 +54,7 @@
                     FlashService.Success('Post successful', false);
                     $('#newPostModal').modal('hide');
                     vm.dataLoading = false;
-                    vm.loadAllPosts().then((res)=>console.log(res)).catch((err)=>console.log(err));
+                    vm.loadAllPosts().then((res) => console.log(res)).catch((err) => console.log(err));
                     vm.message = "";
                 } else {
                     FlashService.Error(response.data.message);
@@ -75,7 +79,7 @@
                     $('#newCommentModal').modal('hide');
                     vm.dataLoading = false;
                     vm.message = "";
-                    vm.loadAllPosts().then((res)=>console.log(res)).catch((err)=>console.log(err));
+                    vm.loadAllPosts().then((res) => console.log(res)).catch((err) => console.log(err));
                 } else {
                     FlashService.Error(response.data.message);
                     vm.dataLoading = false;
