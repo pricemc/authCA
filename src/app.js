@@ -1,12 +1,18 @@
 ﻿(function () {
     'use strict';
 
-    angular
+    var app = angular
         .module('app', ['ngRoute', 'ngCookies', 'angularMoment'])
         .config(config)
         .run(run);
 
+    app.constant('angularMomentConfig', {
+        preprocess: 'unix', // optional
+        timezone: 'America/Denver' // optional
+    });
+    //app.constant('moment', 'moment-timezone');
     config.$inject = ['$routeProvider', '$locationProvider'];
+
     function config($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
@@ -40,10 +46,13 @@
                 templateUrl: 'views/404.view.html'
             })
 
-            .otherwise({ redirectTo: '/404' });
+            .otherwise({
+                redirectTo: '/404'
+            });
     }
 
     run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
+
     function run($rootScope, $location, $cookies, $http) {
         // keep user logged in after page refresh
         $rootScope.globals = $cookies.getObject('globals') || {};
@@ -55,16 +64,16 @@
             var fullRoute = current.$$route.originalPath,
                 routeParams = current.params,
                 resolvedRoute;
-    
+
             console.log(fullRoute);
             console.log(routeParams);
-    
+
             resolvedRoute = fullRoute.replace(/:id/, routeParams.id);
             console.log(resolvedRoute);
             $rootScope.fullRoute = fullRoute;
             $rootScope.fullRoute = routeParams;
             $rootScope.fullRoute = resolvedRoute;
-            
+
         });
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
@@ -78,16 +87,17 @@
         $http.get('/build')
             .then(handleSuccess)
             .catch(handleError);
+
         function handleSuccess(response) {
             console.log(response);
             $rootScope.build = response.data.build;
             $rootScope.time = response.data.time;
 
         }
+
         function handleError(err) {
             console.error(err);
         }
     }
 
 })();
-

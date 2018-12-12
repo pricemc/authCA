@@ -82,8 +82,8 @@
                     <form name="form" ng-submit="vm.Create()" role="form">
                         <div class="form-group" ng-class="{ 'has-error': form.message.$dirty && form.message.$error.required }">
                             <label for="message">Message</label>
-                            <textarea type="text" name="message" id="message"
-                                class="form-control" ng-model="vm.message" required placeholder="What would you like to say?"></textarea>
+                            <textarea type="text" name="message" id="message" class="form-control" ng-model="vm.message"
+                                required placeholder="What would you like to say?"></textarea>
                             <span ng-show="form.message.$dirty && form.message.$error.required" class="help-block">Message
                                 is required</span>
                         </div>
@@ -105,23 +105,25 @@
             <div class="row">
                 <div class="col-xs-4 text-muted">Made with &#10084;</div>
                 <div class="col-xs-4 text-muted">Build Reference: {{build}}</div>
-                <div class="col-xs-4 text-muted">Built: <time>{{time | amFromUnix | amCalendar}}</time></div>
+                <div class="col-xs-4 text-muted">Built: <span am-time-ago="time"></span></div>
             </div>
         </div>
     </footer>
 
     <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
 
+
     <!-- Latest compiled and minified JavaScript -->
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="//code.angularjs.org/1.6.0/angular.min.js"></script>
     <script src="//code.angularjs.org/1.6.0/angular-route.min.js"></script>
     <script src="//code.angularjs.org/1.6.0/angular-cookies.min.js"></script>
+
     <!-- load momentJS (required for angular-moment) -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-
     <!-- load angular-moment -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-moment/0.9.0/angular-moment.min.js"></script>
+    <script src="/app-services/moment-timezone-with-data.js"></script>
 
     <script src="app.js"></script>
     <script src="app-services/authentication.service.js"></script>
